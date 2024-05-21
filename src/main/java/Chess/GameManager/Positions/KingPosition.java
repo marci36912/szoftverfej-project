@@ -7,6 +7,11 @@ import java.util.Set;
 
 public class KingPosition extends Position
 {
+    /***
+     * {@return a new position}
+     *  @param row the row of the position
+     *  @param col the column of the position
+     */
     public KingPosition(int row, int col)
     {
         super(row, col);
