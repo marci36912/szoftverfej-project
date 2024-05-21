@@ -45,9 +45,19 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public boolean isLegalToMoveFrom(Position chessPieceMove)
     {
-        //TODO ha a kiraly es a lo lepesei metszik egymast, akkor true
+        var moves = getLegalMoves();
+        boolean hasMove = false;
 
-        return isOnBoard(chessPieceMove);
+        for(var move : moves)
+        {
+            if(move.from() == chessPieceMove)
+            {
+                hasMove = true;
+                break;
+            }
+        }
+
+        return (isOnBoard(chessPieceMove) && hasMove);
     }
 
     @Override
@@ -72,7 +82,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
-        if(!isLegalMove(chessPieceMoveTwoPhaseMove))
+        if(!isLegalToMoveFrom(chessPieceMoveTwoPhaseMove.from()) && !isLegalMove(chessPieceMoveTwoPhaseMove))
         {
             throw new IllegalArgumentException();
         }
