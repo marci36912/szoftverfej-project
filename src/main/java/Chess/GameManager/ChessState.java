@@ -191,25 +191,4 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         return !(a.equals(b));
     }
-
-    private boolean kingsLegalMove(Position newPosition)
-    {
-        if(newPosition.getAbsoluteDistance(kingPosition.getPosition()) > 1)
-        {
-            return false;
-        }
-
-        return isOnBoard(newPosition);
-    }
-
-    private boolean knightsLegalMove(Position newPosition)
-    {
-        int absoluteDistance = newPosition.getAbsoluteDistance(knightPosition.getPosition());
-        if(absoluteDistance != 2 && absoluteDistance != 1)
-        {
-            return false;
-        }
-
-        return isOnBoard(newPosition);
-    }
 }
