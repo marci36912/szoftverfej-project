@@ -2,6 +2,12 @@ package Chess.GameManager;
 
 import java.util.Objects;
 
+/**
+ * Represents the coordinates of a chess board.
+ *
+ * @param row the row coordinate
+ * @param col the column coordinate
+ */
 public record Position(int row, int col)
 {
     /***
@@ -32,5 +38,14 @@ public record Position(int row, int col)
     public int hashCode()
     {
         return Objects.hash(row, col);
+    }
+
+    /***
+     * {@return the maximum of an absolute distance between the rows, or the columns}
+     * @param position the position of the other point
+     */
+    public int getAbsoluteDistance(Position position)
+    {
+        return Math.max(Math.abs(col-position.col()), Math.abs(row-position.row()));
     }
 }

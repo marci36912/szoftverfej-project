@@ -3,6 +3,7 @@ package Chess.GameManager;
 import puzzle.TwoPhaseMoveState;
 import Chess.GameManager.Positions.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ChessState implements TwoPhaseMoveState<Position>
@@ -10,12 +11,12 @@ public class ChessState implements TwoPhaseMoveState<Position>
     private static final short BOARD_SIZE = 8;
 
     private PiecePosition targetPosition;
-    private KingPiecePosition kingsPosition;
+    private KingPiecePosition kingPosition;
     private KnightPiecePosition knightPosition;
 
     public ChessState()
     {
-        this(new Position(0,0), new Position(0,0), new Position(0,0));
+        this(new Position(6,7), new Position(1,5), new Position(2,5));
     }
 
     public ChessState(Position target, Position king, Position knight)
@@ -24,76 +25,127 @@ public class ChessState implements TwoPhaseMoveState<Position>
         {
             targetPosition = new PiecePosition(target.row(),target.col());
         }
-        if(canPlacePieces(king, knight))
+        else
         {
-            kingsPosition = new KingPiecePosition(king.row(),king.col());
+            throw new IllegalArgumentException();
+        }
+
+        if(canPlacePieces(king, knight) && !isSolved())
+        {
+            kingPosition = new KingPiecePosition(king.row(),king.col());
             knightPosition = new KnightPiecePosition(knight.row(),knight.col());
+        }
+        else
+        {
+            throw new IllegalArgumentException();
         }
     }
 
     @Override
     public boolean isLegalToMoveFrom(Position chessPieceMove)
     {
+        //TODO ha a kiraly es a lo lepesei metszik egymast, akkor true
 
-        return false;
+        return isOnBoard(chessPieceMove);
     }
 
     @Override
     public boolean isSolved()
     {
-        return targetPosition.equals(kingsPosition) || targetPosition.equals(knightPosition);
+        return targetPosition.equals(kingPosition) || targetPosition.equals(knightPosition);
     }
 
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
-        return false;
+        if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
+        {
+            return canPlacePieces(chessPieceMoveTwoPhaseMove.to(), knightPosition.getPosition());
+        }
+        else
+        {
+            return canPlacePieces(chessPieceMoveTwoPhaseMove.to(), kingPosition.getPosition());
+        }
     }
 
     @Override
     public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
-
+        //TODO
     }
 
     @Override
     public Set<TwoPhaseMove<Position>> getLegalMoves()
     {
-        return Set.of();
+        Set<TwoPhaseMove<Position>> moves = new HashSet<TwoPhaseMove<Position>>();
+        var knightsMoves = knightPosition.GetAllMoves();
+        var kingsMoves = kingPosition.GetAllMoves();
+
+        knightsMoves.retainAll(kingsMoves);
+        kingsMoves.retainAll(knightsMoves);
+
+        for(var move : knightsMoves)
+        {
+                moves.add(new TwoPhaseMove<Position>(knightPosition.getPosition(), move));
+        }
+
+        for(var move : kingsMoves)
+        {
+            moves.add(new TwoPhaseMove<Position>(kingPosition.getPosition(), move));
+        }
+
+        for(var move : moves)
+        {
+            if(!isLegalMove(move))
+            {
+                moves.remove(move);
+            }
+        }
+
+        return moves;
     }
 
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
+        //TODO
         return null;
     }
 
     private boolean isOnBoard(Position position)
     {
-        if(position.col() < 0 || position.row() < 0
-        || position.col() >= BOARD_SIZE || position.row() >= BOARD_SIZE)
-        {
-            throw new IllegalArgumentException("Piece is out of bounds.");
-        }
-
-        return true;
+        return !(position.col() < 0 || position.row() < 0
+        || position.col() >= BOARD_SIZE || position.row() >= BOARD_SIZE);
     }
 
     private boolean canPlacePieces(Position king, Position knight)
     {
-        isOnBoard(king);
-        isOnBoard(knight);
-
-        if(king.equals(targetPosition.getPosition()) || knight.equals(targetPosition.getPosition()))
+        if(!isOnBoard(king) || !isOnBoard(knight))
         {
-            throw new IllegalArgumentException("Can't set the pieces position to the targets position.");
+            return false;
         }
 
-        if(king.equals(knight))
+        return !(king.equals(knight));
+    }
+
+    private boolean kingsLegalMove(Position newPosition)
+    {
+        if(newPosition.getAbsoluteDistance(kingPosition.getPosition()) > 1)
         {
-            throw new IllegalArgumentException("The pieces can't have the same position.");
+            return false;
         }
 
-        return true;
+        return isOnBoard(newPosition);
+    }
+
+    private boolean knightsLegalMove(Position newPosition)
+    {
+        int absoluteDistance = newPosition.getAbsoluteDistance(knightPosition.getPosition());
+        if(absoluteDistance != 2 && absoluteDistance != 1)
+        {
+            return false;
+        }
+
+        return isOnBoard(newPosition);
     }
 }

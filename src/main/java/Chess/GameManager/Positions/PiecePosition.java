@@ -3,6 +3,7 @@ package Chess.GameManager.Positions;
 import Chess.GameManager.ChessPieceMove;
 import Chess.GameManager.Position;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -61,7 +62,7 @@ public class PiecePosition
         return new PiecePosition(piecePosition.row()+move.getRowChange(), piecePosition.col()+move.getColChange());
     }
 
-    protected Set<PiecePosition> GetAllMoves()
+    protected HashSet<Position> GetAllMoves()
     {
         return null;
     }

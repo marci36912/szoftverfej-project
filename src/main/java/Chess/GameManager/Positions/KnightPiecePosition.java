@@ -1,6 +1,7 @@
 package Chess.GameManager.Positions;
 
 import Chess.GameManager.ChessPieceMove;
+import Chess.GameManager.Position;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -83,18 +84,18 @@ public class KnightPiecePosition extends PiecePosition
      * {@return returns a set of every possible position, where the king can move}
      */
     @Override
-    public Set<PiecePosition> GetAllMoves()
+    public HashSet<Position> GetAllMoves()
     {
-        var moves = new HashSet<PiecePosition>();
+        var moves = new HashSet<Position>();
 
-        moves.add(MoveUpUpperLeft());
-        moves.add(MoveUpLowerLeft());
-        moves.add(MoveUpUpperRight());
-        moves.add(MoveUpLowerLeft());
-        moves.add(MoveDownUpperLeft());
-        moves.add(MoveDownLowerLeft());
-        moves.add(MoveDownUpperRight());
-        moves.add(MoveDownLowerRight());
+        moves.add(MoveUpUpperLeft().getPosition());
+        moves.add(MoveUpLowerLeft().getPosition());
+        moves.add(MoveUpUpperRight().getPosition());
+        moves.add(MoveUpLowerLeft().getPosition());
+        moves.add(MoveDownUpperLeft().getPosition());
+        moves.add(MoveDownLowerLeft().getPosition());
+        moves.add(MoveDownUpperRight().getPosition());
+        moves.add(MoveDownLowerRight().getPosition());
 
         return moves;
     }
