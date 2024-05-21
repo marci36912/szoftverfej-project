@@ -31,6 +31,16 @@ public class PiecePosition
     }
 
     /***
+     * Changes the value of the position.
+     * @param newPosition the new value set to the position
+     */
+    public void setPosition(Position newPosition)
+    {
+        piecePosition = newPosition;
+    }
+
+
+    /***
      * {@return if the two positions are the same}
      */
     @Override

@@ -71,7 +71,19 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
-        //TODO
+        if(!isLegalMove(chessPieceMoveTwoPhaseMove))
+        {
+            throw new IllegalArgumentException();
+        }
+
+        if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
+        {
+            kingPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+        }
+        else
+        {
+            knightPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+        }
     }
 
     @Override
@@ -86,7 +98,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         for(var move : knightsMoves)
         {
-                moves.add(new TwoPhaseMove<Position>(knightPosition.getPosition(), move));
+            moves.add(new TwoPhaseMove<Position>(knightPosition.getPosition(), move));
         }
 
         for(var move : kingsMoves)
@@ -118,14 +130,14 @@ public class ChessState implements TwoPhaseMoveState<Position>
         || position.col() >= BOARD_SIZE || position.row() >= BOARD_SIZE);
     }
 
-    private boolean canPlacePieces(Position king, Position knight)
+    private boolean canPlacePieces(Position a, Position b)
     {
-        if(!isOnBoard(king) || !isOnBoard(knight))
+        if(!isOnBoard(a) || !isOnBoard(b))
         {
             return false;
         }
 
-        return !(king.equals(knight));
+        return !(a.equals(b));
     }
 
     private boolean kingsLegalMove(Position newPosition)
