@@ -1,6 +1,6 @@
 package Chess.GameManager;
 
-public enum ChessBoard
+public enum ChessPieces
 {
     empty,
     knight,
