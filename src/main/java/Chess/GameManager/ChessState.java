@@ -15,11 +15,22 @@ public class ChessState implements TwoPhaseMoveState<Position>
     private KingPiecePosition kingPosition;
     private KnightPiecePosition knightPosition;
 
+    /***
+     * Default constructor for the game, starts with the target at (7,8), king at (2,6) and knight at (3,6).
+     */
     public ChessState()
     {
         this(new Position(6,7), new Position(1,5), new Position(2,5));
     }
 
+    /***
+     * Constructor for the game, with costume positions
+     * @param target the position of the target
+     * @param king the starting position of the king
+     * @param knight the starting position of the knight
+     *
+     * @exception IllegalArgumentException when a position is out of bounds, or overlapping with each others.
+     */
     public ChessState(Position target, Position king, Position knight)
     {
         if(isOnBoard(target))
@@ -42,6 +53,10 @@ public class ChessState implements TwoPhaseMoveState<Position>
         }
     }
 
+    /***
+     * {@return a boolean that validates the move}
+     * @param chessPieceMove the position we would like to move from
+     */
     @Override
     public boolean isLegalToMoveFrom(Position chessPieceMove)
     {
@@ -60,12 +75,19 @@ public class ChessState implements TwoPhaseMoveState<Position>
         return (isOnBoard(chessPieceMove) && hasMove);
     }
 
+    /***
+     * {@return a boolean value that tells us if the game is solved}
+     */
     @Override
     public boolean isSolved()
     {
         return targetPosition.equals(kingPosition) || targetPosition.equals(knightPosition);
     }
 
+    /***
+     * {@return a boolean that validates the target move}
+     * @param chessPieceMoveTwoPhaseMove contains the starting and ending position
+     */
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
@@ -79,6 +101,10 @@ public class ChessState implements TwoPhaseMoveState<Position>
         }
     }
 
+    /***
+     * Moves a piece in the board
+     * @param chessPieceMoveTwoPhaseMove contains the starting, and the ending position
+     */
     @Override
     public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
@@ -97,6 +123,9 @@ public class ChessState implements TwoPhaseMoveState<Position>
         }
     }
 
+    /***
+     * {@return a set of the possible moves}
+     */
     @Override
     public Set<TwoPhaseMove<Position>> getLegalMoves()
     {
@@ -128,6 +157,9 @@ public class ChessState implements TwoPhaseMoveState<Position>
         return moves;
     }
 
+    /***
+     * {@return a copy of the state}
+     */
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
