@@ -1,4 +1,4 @@
-package Chess.GameManager;
+package Chess.GameManager.Positions;
 
 public class KingPosition extends Position
 {
