@@ -1,5 +1,6 @@
 package Chess.GameManager;
 
+import javafx.geometry.Pos;
 import puzzle.TwoPhaseMoveState;
 import Chess.GameManager.Positions.*;
 
@@ -120,8 +121,17 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
-        //TODO
-        return null;
+        TwoPhaseMoveState<Position> copy;
+        try
+        {
+            copy = (TwoPhaseMoveState<Position>)super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new AssertionError();
+        }
+
+        return copy;
     }
 
     private boolean isOnBoard(Position position)
