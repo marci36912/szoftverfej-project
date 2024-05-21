@@ -3,4 +3,4 @@
 
 Adott egy sakktabla, melyre egy huszart es egy kiralyt helyezunk az abran lathato modon. A feladat az, hogy valamelyik figuraval a C jelu mezore  lepjunk. Csak azzal a figuraval lehet lepni a sakklepeseknek megfeleloen, amelyik eppen utesben van a masik altal.
 
-![img](https://i.imgur.com/mcPpfXF.png)
+![game](assets/img.png)
