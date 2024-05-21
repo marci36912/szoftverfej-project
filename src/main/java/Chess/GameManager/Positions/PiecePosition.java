@@ -1,6 +1,7 @@
 package Chess.GameManager.Positions;
 
 import Chess.GameManager.ChessPieceMove;
+import Chess.GameManager.Position;
 
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +22,14 @@ public class PiecePosition
     }
 
     /***
+     * {@return the position of the current piece}
+     */
+    public Position getPosition()
+    {
+        return piecePosition;
+    }
+
+    /***
      * {@return if the two positions are the same}
      */
     @Override
@@ -35,7 +44,7 @@ public class PiecePosition
             return false;
         }
         PiecePosition position = (PiecePosition) o;
-        return Objects.equals(piecePosition, position.piecePosition);
+        return this.piecePosition.equals(position.piecePosition);
     }
 
     /***
