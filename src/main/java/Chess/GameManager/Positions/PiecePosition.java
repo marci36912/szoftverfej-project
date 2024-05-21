@@ -5,10 +5,9 @@ import Chess.GameManager.ChessPieceMove;
 import java.util.Objects;
 import java.util.Set;
 
-public class Position
+public class PiecePosition
 {
-    protected int row;
-    protected int col;
+    protected Chess.GameManager.Position piecePosition;
 
     /***
      * {@return a new position}
@@ -16,10 +15,9 @@ public class Position
      * @param row the row of the position
      * @param col the column of the position
      */
-    public Position(int row, int col)
+    public PiecePosition(int row, int col)
     {
-        this.row = row;
-        this.col = col;
+        piecePosition = new Chess.GameManager.Position(row, col);
     }
 
     /***
@@ -36,8 +34,8 @@ public class Position
         {
             return false;
         }
-        Position position = (Position) o;
-        return row == position.row && col == position.col;
+        PiecePosition position = (PiecePosition) o;
+        return Objects.equals(piecePosition, position.piecePosition);
     }
 
     /***
@@ -46,24 +44,15 @@ public class Position
     @Override
     public int hashCode()
     {
-        return Objects.hash(row, col);
+        return Objects.hashCode(piecePosition);
     }
 
-    /***
-     * {@return the position as a string}
-     */
-    @Override
-    public String toString()
+    protected PiecePosition move(ChessPieceMove move)
     {
-        return String.format("(%d,%d)", row, col);
+        return new PiecePosition(piecePosition.row()+move.getRowChange(), piecePosition.col()+move.getColChange());
     }
 
-    protected Position move(ChessPieceMove move)
-    {
-        return new Position(row+move.getRowChange(), col+move.getColChange());
-    }
-
-    protected Set<Position> GetAllMoves()
+    protected Set<PiecePosition> GetAllMoves()
     {
         return null;
     }

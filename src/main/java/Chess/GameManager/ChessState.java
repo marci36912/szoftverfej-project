@@ -1,25 +1,21 @@
 package Chess.GameManager;
 
 import puzzle.TwoPhaseMoveState;
-import Chess.GameManager.Positions.*;
+//import Chess.GameManager.Positions.*;
 
 import java.util.Set;
 
-public class ChessState implements TwoPhaseMoveState<ChessPieceMove>
+public class ChessState implements TwoPhaseMoveState<Position>
 {
     private Position targetPosition;
-    private KnightPosition knightPosition;
-    private KingPosition kingPosition;
 
     public ChessState()
     {
         targetPosition = new Position(0,0);
-        knightPosition = new KnightPosition(0,0);
-        kingPosition = new KingPosition(0,0);
     }
 
     @Override
-    public boolean isLegalToMoveFrom(ChessPieceMove chessPieceMove)
+    public boolean isLegalToMoveFrom(Position chessPieceMove)
     {
 
         return false;
@@ -28,29 +24,29 @@ public class ChessState implements TwoPhaseMoveState<ChessPieceMove>
     @Override
     public boolean isSolved()
     {
-        return targetPosition.equals(knightPosition) || targetPosition.equals(kingPosition);
+        return false;
     }
 
     @Override
-    public boolean isLegalMove(TwoPhaseMove<ChessPieceMove> chessPieceMoveTwoPhaseMove)
+    public boolean isLegalMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
         return false;
     }
 
     @Override
-    public void makeMove(TwoPhaseMove<ChessPieceMove> chessPieceMoveTwoPhaseMove)
+    public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
 
     }
 
     @Override
-    public Set<TwoPhaseMove<ChessPieceMove>> getLegalMoves()
+    public Set<TwoPhaseMove<Position>> getLegalMoves()
     {
         return Set.of();
     }
 
     @Override
-    public TwoPhaseMoveState<ChessPieceMove> clone()
+    public TwoPhaseMoveState<Position> clone()
     {
         return null;
     }

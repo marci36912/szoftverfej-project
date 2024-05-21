@@ -5,14 +5,14 @@ import Chess.GameManager.ChessPieceMove;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KnightPosition extends Position
+public class KnightPiecePosition extends PiecePosition
 {
     /***
      * {@return a new position}
      *  @param row the row of the position
      *  @param col the column of the position
      */
-    public KnightPosition(int row, int col)
+    public KnightPiecePosition(int row, int col)
     {
         super(row, col);
     }
@@ -20,7 +20,7 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved two up and one left}
      */
-    public Position MoveUpUpperLeft()
+    public PiecePosition MoveUpUpperLeft()
     {
         return move(ChessPieceMove.KnightUpUpperLeft);
     }
@@ -28,7 +28,7 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved one up and two left}
      */
-    public Position MoveUpLowerLeft()
+    public PiecePosition MoveUpLowerLeft()
     {
         return move(ChessPieceMove.KnightUpLowerLeft);
     }
@@ -36,14 +36,14 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved two up and one right}
      */
-    public Position MoveUpUpperRight()
+    public PiecePosition MoveUpUpperRight()
     {
         return move(ChessPieceMove.KnightUpUpperRight);
     }
     /***
      * {@return returns the new position of the knight, if it moved one up and two right}
      */
-    public Position MoveUpLowerRight()
+    public PiecePosition MoveUpLowerRight()
     {
         return move(ChessPieceMove.KnightUpLowerRight);
     }
@@ -51,7 +51,7 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved two down and one left}
      */
-    public Position MoveDownUpperLeft()
+    public PiecePosition MoveDownUpperLeft()
     {
         return move(ChessPieceMove.KnightDownUpperLeft);
     }
@@ -59,7 +59,7 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved two down and one left}
      */
-    public Position MoveDownLowerLeft()
+    public PiecePosition MoveDownLowerLeft()
     {
         return move(ChessPieceMove.KnightDownLowerLeft);
     }
@@ -67,14 +67,14 @@ public class KnightPosition extends Position
     /***
      * {@return returns the new position of the knight, if it moved one down and two right}
      */
-    public Position MoveDownUpperRight()
+    public PiecePosition MoveDownUpperRight()
     {
         return move(ChessPieceMove.KnightDownUpperRight);
     }
     /***
      * {@return returns the new position of the knight, if it moved two down and one right}
      */
-    public Position MoveDownLowerRight()
+    public PiecePosition MoveDownLowerRight()
     {
         return move(ChessPieceMove.KnightDownLowerRight);
     }
@@ -83,9 +83,9 @@ public class KnightPosition extends Position
      * {@return returns a set of every possible position, where the king can move}
      */
     @Override
-    public Set<Position> GetAllMoves()
+    public Set<PiecePosition> GetAllMoves()
     {
-        var moves = new HashSet<Position>();
+        var moves = new HashSet<PiecePosition>();
 
         moves.add(MoveUpUpperLeft());
         moves.add(MoveUpLowerLeft());

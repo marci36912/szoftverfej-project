@@ -5,14 +5,14 @@ import Chess.GameManager.ChessPieceMove;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KingPosition extends Position
+public class KingPiecePosition extends PiecePosition
 {
     /***
      * {@return a new position}
      *  @param row the row of the position
      *  @param col the column of the position
      */
-    public KingPosition(int row, int col)
+    public KingPiecePosition(int row, int col)
     {
         super(row, col);
     }
@@ -20,7 +20,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved up}
      */
-    public Position MoveUp()
+    public PiecePosition MoveUp()
     {
         return move(ChessPieceMove.KingUp);
     }
@@ -28,7 +28,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved one up and one right}
      */
-    public Position MoveUpRight()
+    public PiecePosition MoveUpRight()
     {
         return move(ChessPieceMove.KingUpRight);
     }
@@ -36,7 +36,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved one up and one left}
      */
-    public Position MoveUpLeft()
+    public PiecePosition MoveUpLeft()
     {
         return move(ChessPieceMove.KingUpRight);
     }
@@ -44,7 +44,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved down}
      */
-    public Position MoveDown()
+    public PiecePosition MoveDown()
     {
         return move(ChessPieceMove.KingDown);
     }
@@ -52,7 +52,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved one down and one right}
      */
-    public Position MoveDownRight()
+    public PiecePosition MoveDownRight()
     {
         return move(ChessPieceMove.KingDownRight);
     }
@@ -60,7 +60,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved one down and one left}
      */
-    public Position MoveDownLeft()
+    public PiecePosition MoveDownLeft()
     {
         return move(ChessPieceMove.KingDownRight);
     }
@@ -68,7 +68,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved left}
      */
-    public Position MoveLeft()
+    public PiecePosition MoveLeft()
     {
         return move(ChessPieceMove.KingLeft);
     }
@@ -76,7 +76,7 @@ public class KingPosition extends Position
     /***
      * {@return returns the new position of the king, if it moved right}
      */
-    public Position MoveRight()
+    public PiecePosition MoveRight()
     {
         return move(ChessPieceMove.KingRight);
     }
@@ -85,9 +85,9 @@ public class KingPosition extends Position
      * {@return returns a set of every possible position, where the king can move}
      */
     @Override
-    public Set<Position> GetAllMoves()
+    public Set<PiecePosition> GetAllMoves()
     {
-        var moves = new HashSet<Position>();
+        var moves = new HashSet<PiecePosition>();
 
         moves.add(MoveUp());
         moves.add(MoveUpRight());
