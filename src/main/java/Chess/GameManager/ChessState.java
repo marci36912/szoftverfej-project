@@ -4,7 +4,7 @@ import puzzle.State;
 
 import java.util.Set;
 
-public class ChessState implements State<ChessPieces>
+public class ChessState implements State<ChessPieceMove>
 {
 
     @Override
@@ -14,25 +14,25 @@ public class ChessState implements State<ChessPieces>
     }
 
     @Override
-    public boolean isLegalMove(ChessPieces chessPieces)
+    public boolean isLegalMove(ChessPieceMove chessPieceMove)
     {
         return false;
     }
 
     @Override
-    public void makeMove(ChessPieces chessPieces)
+    public void makeMove(ChessPieceMove chessPieceMove)
     {
 
     }
 
     @Override
-    public Set<ChessPieces> getLegalMoves()
+    public Set<ChessPieceMove> getLegalMoves()
     {
         return Set.of();
     }
 
     @Override
-    public State<ChessPieces> clone()
+    public State<ChessPieceMove> clone()
     {
         return null;
     }
