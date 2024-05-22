@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ChessState implements TwoPhaseMoveState<Position>
 {
-    private static final short BOARD_SIZE = 8;
+    public static final short BOARD_SIZE = 8;
 
     private PiecePosition targetPosition;
     private KingPiecePosition kingPosition;
