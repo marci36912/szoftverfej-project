@@ -2,12 +2,12 @@ package Chess.GameManager;
 
 public enum ChessPieceMove
 {
-    KingUp(0, 1),
-    KingUpRight(1, 1),
-    KingUpLeft(-1, 1),
-    KingDown(0, -1),
-    KingDownRight(1, -1),
-    KingDownLeft(-1, -1),
+    KingUp(0, -1),
+    KingUpRight(1, -1),
+    KingUpLeft(-1, -1),
+    KingDown(0, 1),
+    KingDownRight(1, 1),
+    KingDownLeft(-1, 1),
     KingLeft(-1, 0),
     KingRight(1, 0),
 

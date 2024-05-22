@@ -39,7 +39,7 @@ public class KingPiecePosition extends PiecePosition
      */
     public PiecePosition MoveUpLeft()
     {
-        return move(ChessPieceMove.KingUpRight);
+        return move(ChessPieceMove.KingUpLeft);
     }
 
     /***
@@ -63,7 +63,7 @@ public class KingPiecePosition extends PiecePosition
      */
     public PiecePosition MoveDownLeft()
     {
-        return move(ChessPieceMove.KingDownRight);
+        return move(ChessPieceMove.KingDownLeft);
     }
 
     /***
@@ -90,9 +90,9 @@ public class KingPiecePosition extends PiecePosition
     {
         var moves = new HashSet<Position>();
 
-        moves.add(MoveUp().getPosition());
-        moves.add(MoveUpRight().getPosition());
-        moves.add(MoveUpLeft().getPosition());
+        moves.add(this.MoveUp().getPosition());
+        moves.add(this.MoveUpRight().getPosition());
+        moves.add(this.MoveUpLeft().getPosition());
         moves.add(MoveDown().getPosition());
         moves.add(MoveDownRight().getPosition());
         moves.add(MoveDownLeft().getPosition());
