@@ -1,6 +1,5 @@
 package Chess.GameManager;
 
-import javafx.geometry.Pos;
 import puzzle.TwoPhaseMoveState;
 import Chess.GameManager.Positions.*;
 
