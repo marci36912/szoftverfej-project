@@ -182,17 +182,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
-        /*TwoPhaseMoveState<Position> copy;
-        try
-        {
-            copy = (TwoPhaseMoveState<Position>)super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            throw new AssertionError();
-        }
-
-        Logger.info(String.format("State copied"));*/
+        Logger.info(String.format("State copied"));
         return new ChessState(targetPosition.getPosition(), kingPosition.getPosition(), knightPosition.getPosition());
     }
 
@@ -247,5 +237,34 @@ public class ChessState implements TwoPhaseMoveState<Position>
         }
 
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+        ChessState that = (ChessState) o;
+        return Objects.equals(targetPosition.getPosition(), that.targetPosition.getPosition()) &&
+                Objects.equals(kingPosition.getPosition(), that.kingPosition.getPosition()) &&
+                Objects.equals(knightPosition.getPosition(), that.knightPosition.getPosition());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(targetPosition, kingPosition, knightPosition);
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Target: %s, King: %s, Knight: %s", targetPosition, kingPosition, knightPosition);
     }
 }

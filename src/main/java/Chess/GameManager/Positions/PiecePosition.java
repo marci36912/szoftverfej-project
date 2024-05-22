@@ -77,4 +77,10 @@ public class PiecePosition
     {
         return null;
     }
+
+    @Override
+    public String toString()
+    {
+        return piecePosition.toString();
+    }
 }
