@@ -45,9 +45,7 @@ public class MenuController
     @FXML
     public void loadSaves(ActionEvent event) throws IOException
     {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.showSaveDialog(new Stage());
+        //TODO
     }
 
     @FXML
