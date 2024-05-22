@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.io.IOException;
 public class MenuController
 {
     @FXML
-    private void switchToMainMenu(ActionEvent event) throws IOException
+    public void switchToMainMenu(ActionEvent event) throws IOException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/MainMenu.fxml"));
@@ -24,7 +25,7 @@ public class MenuController
     }
 
     @FXML
-    private void switchToLeaderboard(ActionEvent event) throws IOException
+    public void switchToLeaderboard(ActionEvent event) throws IOException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/Leaderboard.fxml"));
@@ -33,16 +34,24 @@ public class MenuController
     }
 
     @FXML
-    private void switchToGame(ActionEvent event) throws IOException
+    public void switchToGame(ActionEvent event) throws IOException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/Leaderboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
-    private void quitGame(ActionEvent event) {
+    public void loadSaves(ActionEvent event) throws IOException
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showSaveDialog(new Stage());
+    }
+
+    @FXML
+    public void quitGame(ActionEvent event) {
         Platform.exit();
     }
 
