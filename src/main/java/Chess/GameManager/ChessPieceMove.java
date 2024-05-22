@@ -11,14 +11,14 @@ public enum ChessPieceMove
     KingLeft(-1, 0),
     KingRight(1, 0),
 
-    KnightUpUpperLeft(-1,2),
-    KnightUpLowerLeft(-2,1),
-    KnightUpUpperRight(1,2),
-    KnightUpLowerRight(2,1),
-    KnightDownUpperLeft(-2,-1),
-    KnightDownLowerLeft(-1,-2),
-    KnightDownUpperRight(2,-1),
-    KnightDownLowerRight(1,-2);
+    KnightUpUpperLeft(-1,-2),
+    KnightUpLowerLeft(-2,-1),
+    KnightUpUpperRight(1,-2),
+    KnightUpLowerRight(2,-1),
+    KnightDownUpperLeft(-2,1),
+    KnightDownLowerLeft(-1,2),
+    KnightDownUpperRight(2,1),
+    KnightDownLowerRight(1,2);
 
     private final int rowChange;
     private final int colChange;

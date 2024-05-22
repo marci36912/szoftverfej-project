@@ -91,7 +91,7 @@ public class KnightPiecePosition extends PiecePosition
         moves.add(MoveUpUpperLeft().getPosition());
         moves.add(MoveUpLowerLeft().getPosition());
         moves.add(MoveUpUpperRight().getPosition());
-        moves.add(MoveUpLowerLeft().getPosition());
+        moves.add(MoveUpLowerRight().getPosition());
         moves.add(MoveDownUpperLeft().getPosition());
         moves.add(MoveDownLowerLeft().getPosition());
         moves.add(MoveDownUpperRight().getPosition());
