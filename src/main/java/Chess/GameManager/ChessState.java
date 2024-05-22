@@ -182,7 +182,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
-        Logger.info(String.format("State copied"));
+        Logger.info("State copied");
         return new ChessState(targetPosition.getPosition(), kingPosition.getPosition(), knightPosition.getPosition());
     }
 
