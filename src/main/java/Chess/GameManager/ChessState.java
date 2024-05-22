@@ -109,13 +109,13 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
         {
-            Logger.info(String.format("Trying to move king from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
+            //Logger.info(String.format("Trying to move king from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
             return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), knightPosition.getPosition()) &&
                     kingsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
         else
         {
-            Logger.info(String.format("Trying to move knight from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
+            //Logger.info(String.format("Trying to move knight from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
             return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), kingPosition.getPosition()) &&
                     knightsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
@@ -169,13 +169,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
             moves.add(new TwoPhaseMove<Position>(kingPosition.getPosition(), move));
         }
 
-        for(var move : moves)
-        {
-            if(!isLegalMove(move))
-            {
-                moves.remove(move);
-            }
-        }
+        moves.removeIf(move -> !isLegalMove(move));
 
         Logger.info(String.format("%d moves found", moves.size()));
 
@@ -188,7 +182,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public TwoPhaseMoveState<Position> clone()
     {
-        TwoPhaseMoveState<Position> copy;
+        /*TwoPhaseMoveState<Position> copy;
         try
         {
             copy = (TwoPhaseMoveState<Position>)super.clone();
@@ -198,8 +192,8 @@ public class ChessState implements TwoPhaseMoveState<Position>
             throw new AssertionError();
         }
 
-        Logger.info(String.format("State copied"));
-        return copy;
+        Logger.info(String.format("State copied"));*/
+        return new ChessState(targetPosition.getPosition(), kingPosition.getPosition(), knightPosition.getPosition());
     }
 
     private boolean isOnBoard(Position position)
@@ -253,28 +247,5 @@ public class ChessState implements TwoPhaseMoveState<Position>
         }
 
         return true;
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass())
-        {
-            return false;
-        }
-        ChessState that = (ChessState) o;
-        return Objects.equals(targetPosition.getPosition(), that.targetPosition.getPosition()) &&
-                Objects.equals(kingPosition.getPosition(), that.kingPosition.getPosition()) &&
-                Objects.equals(knightPosition.getPosition(), that.knightPosition.getPosition());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(targetPosition, kingPosition, knightPosition);
     }
 }
