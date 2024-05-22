@@ -26,7 +26,7 @@ class PositionTest
         var position1 = new Position(0, 0);
         var position2 = new Position(0, distance);
 
-        Assertions.assertEquals(distance, position1.getAbsoluteDistance(position2));
+        Assertions.assertEquals(Math.abs(distance), position1.getAbsoluteDistance(position2));
     }
 
     @Test
@@ -37,6 +37,6 @@ class PositionTest
         var position1 = new Position(0, 0);
         var position2 = new Position(5, distance);
 
-        Assertions.assertEquals(distance, position1.getAbsoluteDistance(position2));
+        Assertions.assertEquals(Math.abs(distance), position1.getAbsoluteDistance(position2));
     }
 }

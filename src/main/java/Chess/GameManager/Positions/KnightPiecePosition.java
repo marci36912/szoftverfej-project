@@ -4,6 +4,7 @@ import Chess.GameManager.ChessPieceMove;
 import Chess.GameManager.Position;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class KnightPiecePosition extends PiecePosition

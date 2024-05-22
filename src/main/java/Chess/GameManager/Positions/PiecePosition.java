@@ -55,7 +55,8 @@ public class PiecePosition
             return false;
         }
         PiecePosition position = (PiecePosition) o;
-        return this.piecePosition.equals(position.piecePosition);
+        return (this.getPosition().row() == position.getPosition().row() &&
+                this.getPosition().col() == position.getPosition().col());
     }
 
     /***

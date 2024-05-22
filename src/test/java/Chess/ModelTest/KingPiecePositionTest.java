@@ -24,7 +24,7 @@ class KingPiecePositionTest
     @Test
     void moveUp()
     {
-        var newPosition = kingsPosition.MoveDown();
+        var newPosition = kingsPosition.MoveUp();
         var expectedPosition = new Position(0,-1);
 
         Assertions.assertEquals(newPosition.getPosition(), expectedPosition);

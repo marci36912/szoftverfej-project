@@ -4,6 +4,7 @@ import puzzle.TwoPhaseMoveState;
 import Chess.GameManager.Positions.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ChessState implements TwoPhaseMoveState<Position>
@@ -41,12 +42,17 @@ public class ChessState implements TwoPhaseMoveState<Position>
             throw new IllegalArgumentException();
         }
 
-        if(canPlacePieces(king, knight) && !isSolved())
+        if(canPlacePieces(king, knight))
         {
             kingPosition = new KingPiecePosition(king.row(),king.col());
             knightPosition = new KnightPiecePosition(knight.row(),knight.col());
         }
         else
+        {
+            throw new IllegalArgumentException();
+        }
+
+        if(isSolved())
         {
             throw new IllegalArgumentException();
         }
@@ -64,7 +70,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         for(var move : moves)
         {
-            if(move.from() == chessPieceMove)
+            if(move.from().equals(chessPieceMove))
             {
                 hasMove = true;
                 break;
@@ -80,7 +86,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public boolean isSolved()
     {
-        return targetPosition.equals(kingPosition) || targetPosition.equals(knightPosition);
+        return (targetPosition.getPosition().equals(kingPosition.getPosition()) || targetPosition.getPosition().equals(knightPosition.getPosition()));
     }
 
     /***
@@ -90,13 +96,20 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
+        if(chessPieceMoveTwoPhaseMove.from().equals(chessPieceMoveTwoPhaseMove.to()))
+        {
+            return true;
+        }
+
         if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
         {
-            return canPlacePieces(chessPieceMoveTwoPhaseMove.to(), knightPosition.getPosition());
+            return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), knightPosition.getPosition()) &&
+                    kingsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
         else
         {
-            return canPlacePieces(chessPieceMoveTwoPhaseMove.to(), kingPosition.getPosition());
+            return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), kingPosition.getPosition()) &&
+                    knightsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
     }
 
@@ -107,7 +120,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public void makeMove(TwoPhaseMove<Position> chessPieceMoveTwoPhaseMove)
     {
-        if(!isLegalToMoveFrom(chessPieceMoveTwoPhaseMove.from()) && !isLegalMove(chessPieceMoveTwoPhaseMove))
+        if(!isLegalToMoveFrom(chessPieceMoveTwoPhaseMove.from()) || !isLegalMove(chessPieceMoveTwoPhaseMove))
         {
             throw new IllegalArgumentException();
         }
@@ -207,5 +220,47 @@ public class ChessState implements TwoPhaseMoveState<Position>
         return knightPosition.getPosition();
     }
 
+    private boolean kingsLegalMove(Position newPosition)
+    {
+        if(newPosition.getAbsoluteDistance(kingPosition.getPosition()) > 1)
+        {
+            return false;
+        }
 
+        return true;
+    }
+
+    private boolean knightsLegalMove(Position newPosition)
+    {
+        int absoluteDistance = newPosition.getAbsoluteDistance(knightPosition.getPosition());
+        if(absoluteDistance != 2 && absoluteDistance != 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+        ChessState that = (ChessState) o;
+        return Objects.equals(targetPosition.getPosition(), that.targetPosition.getPosition()) &&
+                Objects.equals(kingPosition.getPosition(), that.kingPosition.getPosition()) &&
+                Objects.equals(knightPosition.getPosition(), that.knightPosition.getPosition());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(targetPosition, kingPosition, knightPosition);
+    }
 }

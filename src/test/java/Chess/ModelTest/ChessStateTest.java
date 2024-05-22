@@ -411,7 +411,7 @@ class ChessStateTest
 
         var moves = chessState.getLegalMoves();
 
-        Assertions.assertNull(moves);
+        Assertions.assertTrue(moves.isEmpty());
     }
 
     @Test
@@ -420,7 +420,7 @@ class ChessStateTest
         var chessState = new ChessState();
         var clone = chessState.clone();
 
-        Assertions.assertEquals(chessState, clone);
+        Assertions.assertTrue(chessState.equals(clone));
     }
 
     @Test
