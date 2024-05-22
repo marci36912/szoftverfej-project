@@ -1,5 +1,6 @@
 package Chess.GameManager;
 
+import org.tinylog.Logger;
 import puzzle.TwoPhaseMoveState;
 import Chess.GameManager.Positions.*;
 
@@ -36,6 +37,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
         if(isOnBoard(target))
         {
             targetPosition = new PiecePosition(target.row(),target.col());
+            Logger.info(String.format("Target position set at %s", targetPosition.getPosition().toString()));
         }
         else
         {
@@ -46,6 +48,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
         {
             kingPosition = new KingPiecePosition(king.row(),king.col());
             knightPosition = new KnightPiecePosition(knight.row(),knight.col());
+            Logger.info(String.format("Kings position set to %s and knights set to %s", kingPosition.getPosition().toString(), knightPosition.getPosition().toString()));
         }
         else
         {
@@ -54,6 +57,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         if(isSolved())
         {
+            Logger.info("Game was already solved");
             throw new IllegalArgumentException();
         }
     }
@@ -72,6 +76,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
         {
             if(move.from().equals(chessPieceMove))
             {
+                Logger.info(String.format("Legal move found at %s", chessPieceMove));
                 hasMove = true;
                 break;
             }
@@ -98,16 +103,19 @@ public class ChessState implements TwoPhaseMoveState<Position>
     {
         if(chessPieceMoveTwoPhaseMove.from().equals(chessPieceMoveTwoPhaseMove.to()))
         {
+            Logger.info("Piece stays in place");
             return true;
         }
 
         if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
         {
+            Logger.info(String.format("Trying to move king from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
             return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), knightPosition.getPosition()) &&
                     kingsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
         else
         {
+            Logger.info(String.format("Trying to move knight from %s to %s", kingPosition.getPosition().toString(), chessPieceMoveTwoPhaseMove.to()));
             return (canPlacePieces(chessPieceMoveTwoPhaseMove.to(), kingPosition.getPosition()) &&
                     knightsLegalMove(chessPieceMoveTwoPhaseMove.to()));
         }
@@ -122,15 +130,18 @@ public class ChessState implements TwoPhaseMoveState<Position>
     {
         if(!isLegalToMoveFrom(chessPieceMoveTwoPhaseMove.from()) || !isLegalMove(chessPieceMoveTwoPhaseMove))
         {
+            Logger.info(String.format("Illegal move from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
             throw new IllegalArgumentException();
         }
 
         if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
         {
+            Logger.info(String.format("King moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
             kingPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
         }
         else
         {
+            Logger.info(String.format("Knight moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
             knightPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
         }
     }
@@ -166,6 +177,8 @@ public class ChessState implements TwoPhaseMoveState<Position>
             }
         }
 
+        Logger.info(String.format("%d moves found", moves.size()));
+
         return moves;
     }
 
@@ -185,6 +198,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
             throw new AssertionError();
         }
 
+        Logger.info(String.format("State copied"));
         return copy;
     }
 
