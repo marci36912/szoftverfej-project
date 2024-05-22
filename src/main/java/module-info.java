@@ -7,4 +7,5 @@ module homework.template.project
     exports Chess.Solver;
     requires org.tinylog.api;
     requires homework.project.utils;
+    requires javafx.fxml;
 }

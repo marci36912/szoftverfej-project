@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Chess.UI.Game">
+   <children>
+      <Button layoutX="34.0" layoutY="65.0" mnemonicParsing="false" text="Start" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Button alignment="CENTER" layoutX="34.0" layoutY="142.0" mnemonicParsing="false" text="Ranglista" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Button layoutX="34.0" layoutY="316.0" mnemonicParsing="false" text="Kilepes" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Label layoutX="342.0" layoutY="300.0" text="Nev:">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <TextField fx:id="nameField" layoutX="393.0" layoutY="304.0" />
+   </children>
+</AnchorPane>
