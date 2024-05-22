@@ -190,4 +190,22 @@ public class ChessState implements TwoPhaseMoveState<Position>
 
         return !(a.equals(b));
     }
+
+    /***
+     * {@return the current position of the king}
+     */
+    public Position getKingsPosition()
+    {
+        return kingPosition.getPosition();
+    }
+
+    /***
+     * {@return the current position of the knight}
+     */
+    public Position getKnightPosition()
+    {
+        return knightPosition.getPosition();
+    }
+
+
 }
