@@ -134,15 +134,24 @@ public class ChessState implements TwoPhaseMoveState<Position>
             throw new IllegalArgumentException();
         }
 
-        if(chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
+        var moves = getLegalMoves();
+
+        if(moves.contains(chessPieceMoveTwoPhaseMove))
         {
-            Logger.info(String.format("King moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
-            kingPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+            if (chessPieceMoveTwoPhaseMove.from().equals(kingPosition.getPosition()))
+            {
+                Logger.info(String.format("King moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
+                kingPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+            }
+            else
+            {
+                Logger.info(String.format("Knight moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
+                knightPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+            }
         }
         else
         {
-            Logger.info(String.format("Knight moved from %s to %s", chessPieceMoveTwoPhaseMove.from(), chessPieceMoveTwoPhaseMove.to()));
-            knightPosition.setPosition(chessPieceMoveTwoPhaseMove.to());
+            throw new IllegalArgumentException();
         }
     }
 

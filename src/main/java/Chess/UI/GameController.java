@@ -71,6 +71,12 @@ public class GameController
             {
                 //error
             }
+            finally
+            {
+                selectedStartingPosition = null;
+                colorChessBoard();
+                checkWinCondition();
+            }
         }
     }
 
@@ -159,9 +165,6 @@ public class GameController
         state.makeMove(new TwoPhaseMoveState.TwoPhaseMove<Position>(selectedStartingPosition, selectedMovePosition));
         moves++;
         Moves.setText(String.valueOf(moves));
-        selectedStartingPosition = null;
-        colorChessBoard();
-        checkWinCondition();
     }
 
     private void setSelectedStartingPosition(int n)
@@ -186,6 +189,8 @@ public class GameController
         {
             selectedStartingPosition = null;
         }
+
+        Infos.setVisible(false);
     }
 
     private void colorLegalMoves()
