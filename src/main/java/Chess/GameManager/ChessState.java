@@ -21,7 +21,7 @@ public class ChessState implements TwoPhaseMoveState<Position>
      */
     public ChessState()
     {
-        this(new Position(6,7), new Position(1,5), new Position(2,5));
+        this(new Position(7,6), new Position(5,1), new Position(5,2));
     }
 
     /***
