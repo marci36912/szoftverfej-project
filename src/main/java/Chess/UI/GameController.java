@@ -3,28 +3,83 @@ package Chess.UI;
 
 import Chess.GameManager.ChessState;
 import Chess.GameManager.Position;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import puzzle.TwoPhaseMoveState;
+
+import java.io.IOException;
 
 public class GameController
 {
     @FXML
     public GridPane GameSpace;
+    @FXML
+    public Label Moves;
+    @FXML
+    public Label Infos;
     private Label[] labels;
     private ChessState state;
     private int size;
     private Position selectedStartingPosition;
+    private int moves;
+
+    public void resetGame(ActionEvent event) throws IOException
+    {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void backToMainMenu(ActionEvent event) throws IOException
+    {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void onLabelClick(MouseEvent event, int n)
+    {
+        if(selectedStartingPosition == null)
+        {
+            setSelectedStartingPosition(n);
+        }
+        else
+        {
+            try
+            {
+                makeMove(n);
+            }
+            catch(IllegalArgumentException e)
+            {
+                Infos.setText("Ervenytelen lepes!");
+                Infos.setVisible(true);
+            }
+            catch(Exception e)
+            {
+                //error
+            }
+        }
+    }
 
     public void initialize()
     {
         createBoard();
         state = new ChessState();
         colorChessBoard();
+        moves = 0;
     }
 
     private void createBoard()
@@ -98,36 +153,15 @@ public class GameController
         return (row * state.BOARD_SIZE) + col;
     }
 
-    public void onLabelClick(MouseEvent event, int n)
-    {
-        if(selectedStartingPosition == null)
-        {
-            setSelectedStartingPosition(n);
-        }
-        else
-        {
-            try
-            {
-                makeMove(n);
-            }
-            catch(IllegalArgumentException e)
-            {
-                //cant move there
-            }
-            catch(Exception e)
-            {
-                //error
-            }
-        }
-    }
-
     private void makeMove(int n) throws IllegalArgumentException
     {
         var selectedMovePosition = new Position(getRow(n), getCol(n));
         state.makeMove(new TwoPhaseMoveState.TwoPhaseMove<Position>(selectedStartingPosition, selectedMovePosition));
-
+        moves++;
+        Moves.setText(String.valueOf(moves));
         selectedStartingPosition = null;
         colorChessBoard();
+        checkWinCondition();
     }
 
     private void setSelectedStartingPosition(int n)
@@ -163,6 +197,20 @@ public class GameController
             int i = getIndex(move.to().row(), move.to().col());
 
             labels[i].setBackground(new Background(new BackgroundFill(Color.TOMATO, null, null)));
+        }
+    }
+
+    private void checkWinCondition()
+    {
+        if(state.isSolved())
+        {
+            for(var label : labels)
+            {
+                label.setDisable(true);
+            }
+
+            Infos.setText("Nyertel!");
+            Infos.setVisible(true);
         }
     }
 }
