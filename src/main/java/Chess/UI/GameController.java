@@ -11,6 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -32,6 +34,8 @@ public class GameController
     private int size;
     private Position selectedStartingPosition;
     private int moves;
+    private ImageView knightImage;
+    private ImageView kingImage;
 
     public void resetGame(ActionEvent event) throws IOException
     {
@@ -88,6 +92,18 @@ public class GameController
         moves = 0;
     }
 
+    private void loadImages(float size)
+    {
+        Image knight =  new Image(getClass().getResourceAsStream("knight.png"));
+        knightImage = new ImageView(knight);
+        knightImage.setFitHeight(size);
+        knightImage.setPreserveRatio(true);
+        Image king =  new Image(getClass().getResourceAsStream("king.png"));
+        kingImage = new ImageView(king);
+        kingImage.setFitHeight(size);
+        kingImage.setPreserveRatio(true);
+    }
+
     private void createBoard()
     {
         size = ChessState.BOARD_SIZE * ChessState.BOARD_SIZE;
@@ -120,6 +136,8 @@ public class GameController
             });
             GameSpace.add(labels[i], getCol(i), getRow(i));
         }
+
+        loadImages(gameSize);
     }
 
     private void colorChessBoard()
@@ -139,8 +157,8 @@ public class GameController
         var knight = state.getKnightPosition();
         var king = state.getKingsPosition();
         var target = state.getTargetsPosition();
-        labels[getIndex(knight.row(), knight.col())].setBackground(new Background(new BackgroundFill(Color.BROWN, null, null)));
-        labels[getIndex(king.row(), king.col())].setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+        labels[getIndex(knight.row(), knight.col())].setGraphic(knightImage);
+        labels[getIndex(king.row(), king.col())].setGraphic(kingImage);
         labels[getIndex(target.row(), target.col())].setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
     }
 
@@ -215,6 +233,16 @@ public class GameController
             }
 
             Infos.setText("Nyertel!");
+            Infos.setVisible(true);
+        }
+        else if(state.getLegalMoves().size() == 0)
+        {
+            for(var label : labels)
+            {
+                label.setDisable(true);
+            }
+
+            Infos.setText("Nincs megjelenitheto ervenyes lepes. Vesztettel!");
             Infos.setVisible(true);
         }
     }

@@ -18,3 +18,6 @@ Adott egy sakktabla, melyre egy huszart es egy kiralyt helyezunk az abran lathat
 10. from=(5,3), to=(7,4)
 11. from=(7,4), to=(5,5)
 12. from=(6,5), to=(7,6)
+
+https://thenounproject.com/icon/chess-knight-589743/
+https://thenounproject.com/icon/chess-king-6172954/
