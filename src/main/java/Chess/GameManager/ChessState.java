@@ -69,20 +69,27 @@ public class ChessState implements TwoPhaseMoveState<Position>
     @Override
     public boolean isLegalToMoveFrom(Position chessPieceMove)
     {
-        var moves = getLegalMoves();
-        boolean hasMove = false;
-
-        for(var move : moves)
+        boolean isHitting = false;
+        if(chessPieceMove.equals(kingPosition.getPosition()))
         {
-            if(move.from().equals(chessPieceMove))
+            var knightsMoves = knightPosition.GetAllMoves();
+
+            if(knightsMoves.contains(chessPieceMove))
             {
-                Logger.info(String.format("Legal move found at %s", chessPieceMove));
-                hasMove = true;
-                break;
+                isHitting = true;
+            }
+        }
+        else if(chessPieceMove.equals(knightPosition.getPosition()))
+        {
+            var kingsMoves = kingPosition.GetAllMoves();
+
+            if(kingsMoves.contains(chessPieceMove))
+            {
+                isHitting = true;
             }
         }
 
-        return (isOnBoard(chessPieceMove) && hasMove);
+        return (isOnBoard(chessPieceMove) && isHitting);
     }
 
     /***
@@ -165,17 +172,22 @@ public class ChessState implements TwoPhaseMoveState<Position>
         var knightsMoves = knightPosition.GetAllMoves();
         var kingsMoves = kingPosition.GetAllMoves();
 
-        knightsMoves.retainAll(kingsMoves);
-        kingsMoves.retainAll(knightsMoves);
+       // knightsMoves.retainAll(kingsMoves);
+       // kingsMoves.retainAll(knightsMoves);
 
-        for(var move : knightsMoves)
+        if(isLegalToMoveFrom(knightPosition.getPosition()))
         {
-            moves.add(new TwoPhaseMove<Position>(knightPosition.getPosition(), move));
+            for (var move : knightsMoves)
+            {
+                moves.add(new TwoPhaseMove<Position>(knightPosition.getPosition(), move));
+            }
         }
-
-        for(var move : kingsMoves)
+        else if(isLegalToMoveFrom(kingPosition.getPosition()))
         {
-            moves.add(new TwoPhaseMove<Position>(kingPosition.getPosition(), move));
+            for (var move : kingsMoves)
+            {
+                moves.add(new TwoPhaseMove<Position>(kingPosition.getPosition(), move));
+            }
         }
 
         moves.removeIf(move -> !isLegalMove(move));

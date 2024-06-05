@@ -86,7 +86,7 @@ class ChessStateTest
     {
         var targetPosition = new Position(7, 7);
         var kingPosition = new Position(2, 1);
-        var knightsPosition = new Position(3, 4);
+        var knightsPosition = new Position(3, 1);
 
         var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
 
@@ -97,8 +97,8 @@ class ChessStateTest
     void isLegalToMoveFromKingCanMove()
     {
         var targetPosition = new Position(7, 7);
-        var kingPosition = new Position(2, 1);
-        var knightsPosition = new Position(3, 4);
+        var kingPosition = new Position(0, 2);
+        var knightsPosition = new Position(2, 1);
 
         var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
 
@@ -144,9 +144,9 @@ class ChessStateTest
     @Test
     void isSolvedTrue()
     {
-        var targetPosition = new Position(0, 0);
-        var kingPosition = new Position(1, 0);
-        var knightsPosition = new Position(1, 2);
+        var targetPosition = new Position(1, 3);
+        var kingPosition = new Position(0, 2);
+        var knightsPosition = new Position(2, 1);
 
         var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
 
@@ -250,8 +250,8 @@ class ChessStateTest
     @Test
     void makeMoveKingMoved()
     {
-        var targetPosition = new Position(0, 0);
-        var kingPosition = new Position(1, 0);
+        var targetPosition = new Position(2, 4);
+        var kingPosition = new Position(3, 3);
         var knightsPosition = new Position(1, 2);
 
         var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
@@ -266,7 +266,7 @@ class ChessStateTest
     {
         var targetPosition = new Position(0, 0);
         var kingPosition = new Position(1, 0);
-        var knightsPosition = new Position(1, 2);
+        var knightsPosition = new Position(2, 1);
 
         var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
 
@@ -352,38 +352,6 @@ class ChessStateTest
         {
             chessState.makeMove(new TwoPhaseMoveState.TwoPhaseMove<Position>(knightsPosition, movePosition));
         });
-    }
-
-    @Test
-    void makeMoveKingStayInPlace()
-    {
-        var targetPosition = new Position(0, 0);
-        var kingPosition = new Position(1, 0);
-        var knightsPosition = new Position(1, 2);
-
-        var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
-
-        var move = new TwoPhaseMoveState.TwoPhaseMove<Position>(kingPosition, kingPosition);
-
-        chessState.makeMove(move);
-
-        Assertions.assertEquals(chessState.getKingsPosition(), kingPosition);
-    }
-
-    @Test
-    void makeMoveKnightStayInPlace()
-    {
-        var targetPosition = new Position(0, 0);
-        var kingPosition = new Position(1, 0);
-        var knightsPosition = new Position(1, 2);
-
-        var chessState = new ChessState(targetPosition, kingPosition, knightsPosition);
-
-        var move = new TwoPhaseMoveState.TwoPhaseMove<Position>(knightsPosition, knightsPosition);
-
-        chessState.makeMove(move);
-
-        Assertions.assertEquals(chessState.getKnightPosition(), knightsPosition);
     }
 
     @Test

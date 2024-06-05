@@ -6,18 +6,16 @@ Adott egy sakktabla, melyre egy huszart es egy kiralyt helyezunk az abran lathat
 ![game](assets/img.png)
 
 ## Megoldas
+
 1. from=(5,2), to=(6,0)
-2. from=(6,0), to=(4,1)
+2. from=(6,0), to=(7,2)
 3. from=(5,1), to=(6,2)
-4. from=(4,1), to=(5,3)
-5. from=(5,3), to=(7,2)
+4. from=(7,2), to=(5,1)
+5. from=(5,1), to=(4,3)
 6. from=(6,2), to=(5,3)
-7. from=(5,3), to=(6,4)
-8. from=(7,2), to=(5,3)
-9. from=(6,4), to=(6,5)
-10. from=(5,3), to=(7,4)
-11. from=(7,4), to=(5,5)
-12. from=(6,5), to=(7,6)
+7. from=(4,3), to=(6,4)
+8. from=(6,4), to=(7,6)
+
 
 https://thenounproject.com/icon/chess-knight-589743/
 https://thenounproject.com/icon/chess-king-6172954/

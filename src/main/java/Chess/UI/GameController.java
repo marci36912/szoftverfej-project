@@ -193,12 +193,12 @@ public class GameController
         int knightIndex = getIndex(knight.row(), knight.col());
         int kingIndex = getIndex(king.row(), king.col());
 
-        if(knightIndex == n)
+        if(knightIndex == n && state.isLegalToMoveFrom(state.getKnightPosition()))
         {
             selectedStartingPosition = knight;
             colorLegalMoves();
         }
-        else if (kingIndex == n)
+        else if (kingIndex == n && state.isLegalToMoveFrom(state.getKingsPosition()))
         {
             selectedStartingPosition = king;
             colorLegalMoves();

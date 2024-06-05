@@ -39,4 +39,13 @@ class PositionTest
 
         Assertions.assertEquals(Math.abs(distance), position1.getAbsoluteDistance(position2));
     }
+
+    @Test
+    void equalsReturnsTrueOnValidInput()
+    {
+        var pos1 = new Position(0, 0);
+        var pos2 = new Position(0, 0);
+
+        assertTrue(pos1.equals(pos2));
+    }
 }
