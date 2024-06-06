@@ -7,9 +7,17 @@ import java.util.List;
 
 public class DataHolder
 {
-    public static List<GameInfo> GameInfos = new ArrayList<GameInfo>();
+    public static ArrayList<GameInfo> GameInfos;
 
-    public static void WriteSaves(File file) throws IOException
+    public DataHolder()
+    {
+        if(GameInfos == null)
+        {
+            GameInfos = new ArrayList<GameInfo>();
+        }
+    }
+
+    public void WriteSaves(File file) throws IOException
     {
         if (GameInfos.size() <= 0)
         {
@@ -19,8 +27,14 @@ public class DataHolder
         JsonWriter.writeSaves(file, GameInfos);
     }
 
-    public static void LoadSaves(File file) throws IOException
+    public void LoadSaves(File file) throws IOException
     {
-        GameInfos = JsonReader.readSaves(file);
+        GameInfos.clear();
+        GameInfos.addAll(JsonReader.readSaves(file));
+    }
+
+    public void AddGame(String name, int steps, long duration)
+    {
+        GameInfos.add(new GameInfo(name, steps, duration));
     }
 }

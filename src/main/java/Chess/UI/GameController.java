@@ -3,6 +3,7 @@ package Chess.UI;
 
 import Chess.GameManager.ChessState;
 import Chess.GameManager.Position;
+import Chess.Saves.DataHolder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,16 +11,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import puzzle.TwoPhaseMoveState;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class GameController
 {
@@ -29,6 +35,8 @@ public class GameController
     public Label Moves;
     @FXML
     public Label Infos;
+    @FXML
+    public Button saveButton;
     private Label[] labels;
     private ChessState state;
     private int size;
@@ -37,6 +45,35 @@ public class GameController
     private ImageView knightImage;
     private ImageView kingImage;
 
+    private long timer;
+
+    @FXML
+    public void SaveGame()
+    {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(GameSpace.getScene().getWindow());
+        if(selectedDirectory == null)
+        {
+            return;
+        }
+
+        File savePath = new File(String.valueOf(Path.of(selectedDirectory.getAbsolutePath(), "save.json")));
+
+        DataHolder dataHolder = new DataHolder();
+
+        dataHolder.AddGame(MenuController.UserName, moves, timer);
+        try
+        {
+            dataHolder.WriteSaves(savePath);
+        }
+        catch (Exception e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Hiba tortent a file mentese kozben.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     public void resetGame(ActionEvent event) throws IOException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -46,6 +83,7 @@ public class GameController
         stage.show();
     }
 
+    @FXML
     public void backToMainMenu(ActionEvent event) throws IOException
     {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -54,6 +92,7 @@ public class GameController
         stage.show();
     }
 
+    @FXML
     public void onLabelClick(MouseEvent event, int n)
     {
         if(selectedStartingPosition == null)
@@ -90,6 +129,9 @@ public class GameController
         state = new ChessState();
         colorChessBoard();
         moves = 0;
+        timer = System.currentTimeMillis();
+
+        saveButton.setVisible(false);
     }
 
     private void loadImages(float size)
@@ -152,6 +194,8 @@ public class GameController
             {
                 labels[i].setBackground(new Background(new BackgroundFill(Color.ANTIQUEWHITE, null, null)));
             }
+
+            labels[i].setGraphic(null);
         }
 
         var knight = state.getKnightPosition();
@@ -234,6 +278,10 @@ public class GameController
 
             Infos.setText("Nyertel!");
             Infos.setVisible(true);
+
+            timer = (System.currentTimeMillis() - timer) / 1000;
+
+            saveButton.setVisible(true);
         }
         else if(state.getLegalMoves().size() == 0)
         {

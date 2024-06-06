@@ -3,6 +3,7 @@ package Chess.Saves;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonDeserialize(as = GameInfo.class)
 public class GameInfo
@@ -17,7 +18,7 @@ public class GameInfo
         super();
     }
 
-    public GameInfo(String userName, int steps, float duration)
+    public GameInfo(String userName, int steps, long duration)
     {
         if(userName == null || userName.isEmpty())
         {
@@ -33,7 +34,7 @@ public class GameInfo
         this.duration = timeFormatter(duration);
     }
 
-    private String timeFormatter(float duration)
+    private String timeFormatter(long duration)
     {
         return String.format("%02d:%02d", (int)duration / 60, (int)duration % 60);
     }
