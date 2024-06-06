@@ -10,7 +10,7 @@ import java.util.List;
 
 public class JsonWriter
 {
-    public void writeSaves(File outputFile, List<GameInfo> games) throws IOException
+    public static void writeSaves(File outputFile, List<GameInfo> games) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());

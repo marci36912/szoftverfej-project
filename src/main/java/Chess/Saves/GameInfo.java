@@ -1,13 +1,21 @@
 package Chess.Saves;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.time.LocalDate;
 
+@JsonDeserialize(as = GameInfo.class)
 public class GameInfo
 {
     private String userName;
     private String duration;
-    private LocalDate date;
+    private String date;
     private int steps;
+
+    public GameInfo()
+    {
+        super();
+    }
 
     public GameInfo(String userName, int steps, float duration)
     {
@@ -21,12 +29,63 @@ public class GameInfo
         }
 
         this.steps = steps;
-        this.date = LocalDate.now();
+        this.date = LocalDate.now().toString();
         this.duration = timeFormatter(duration);
     }
 
     private String timeFormatter(float duration)
     {
-        return String.format("%02d:%02d", duration / 60, duration % 60);
+        return String.format("%02d:%02d", (int)duration / 60, (int)duration % 60);
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public String getDuration()
+    {
+        return duration;
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public int getSteps()
+    {
+        return steps;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public void setDuration(String duration)
+    {
+        this.duration = duration;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public void setSteps(int steps)
+    {
+        this.steps = steps;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "GameInfo{" +
+                "userName='" + userName + '\'' +
+                ", duration='" + duration + '\'' +
+                ", date='" + date + '\'' +
+                ", steps=" + steps +
+                '}';
     }
 }

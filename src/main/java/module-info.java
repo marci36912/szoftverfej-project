@@ -5,6 +5,7 @@ module homework.template.project
     exports Chess.UI;
     exports Chess.GameManager;
     exports Chess.Solver;
+    exports Chess.Saves;
     requires org.tinylog.api;
     requires homework.project.utils;
     requires javafx.fxml;
