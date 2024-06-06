@@ -8,4 +8,5 @@ module homework.template.project
     requires org.tinylog.api;
     requires homework.project.utils;
     requires javafx.fxml;
+    requires com.fasterxml.jackson.databind;
 }
