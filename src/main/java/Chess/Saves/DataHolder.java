@@ -1,5 +1,6 @@
 package Chess.Saves;
 
+import org.tinylog.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class DataHolder
         if(GameInfos == null)
         {
             GameInfos = new ArrayList<GameInfo>();
+            Logger.info("New array created for the data holder");
         }
     }
 
@@ -39,6 +41,7 @@ public class DataHolder
         }
 
         JsonWriter.writeSaves(file, GameInfos);
+        Logger.info("Saved to " + file.getPath());
     }
 
     /***
@@ -50,6 +53,7 @@ public class DataHolder
     {
         GameInfos.clear();
         GameInfos.addAll(JsonReader.readSaves(file));
+        Logger.info("Loaded from " + file.getPath());
     }
 
     /***
@@ -62,5 +66,6 @@ public class DataHolder
     public void AddGame(String name, int steps, long duration)
     {
         GameInfos.add(new GameInfo(name, steps, duration));
+        Logger.info("Added game: " + name);
     }
 }

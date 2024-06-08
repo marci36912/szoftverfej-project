@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 import java.io.IOException;
 
@@ -23,6 +24,8 @@ public class Game extends Application
         Image king =  new Image(getClass().getResourceAsStream("king.png"));
         stage.getIcons().add(king);
         stage.show();
+
+        Logger.info("Game started with UI");
     }
 
     public static void main(String[] args) {
