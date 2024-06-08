@@ -85,6 +85,8 @@ public class MenuController
 
         if(!"save.json".equals(selectedFile.getName().toString()))
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Csak save.json file adhato meg!");
+            alert.showAndWait();
             return;
         }
 
@@ -95,7 +97,7 @@ public class MenuController
         }
         catch (Exception e)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Hiba tortent a file mentese kozben.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Hiba tortent a file betoltese kozben.");
             alert.showAndWait();
         }
 
@@ -128,11 +130,18 @@ public class MenuController
 
     public void ChangeName(ActionEvent event)
     {
-        Pattern p = Pattern.compile("[a-zA-Z]{0,30}");
+        Pattern p = Pattern.compile("[a-zA-Z]{1,30}");
         Matcher m = p.matcher(nameField.getText());
         if(m.matches())
         {
             UserName = nameField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nev beallitva: " + UserName);
+            alert.showAndWait();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nem megfelelo nev! Csak es kizarolag betuk adhatok meg, 30 karakter hosszusagig!");
+            alert.showAndWait();
         }
     }
 }
