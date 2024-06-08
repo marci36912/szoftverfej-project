@@ -14,7 +14,7 @@ import java.util.Set;
 public class ChessState implements TwoPhaseMoveState<Position>
 {
     /***
-     * The size of thr chessboard.
+     * The size of the chessboard.
      */
     public static final short BOARD_SIZE = 8;
 

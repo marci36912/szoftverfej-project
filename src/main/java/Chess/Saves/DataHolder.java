@@ -57,7 +57,7 @@ public class DataHolder
     }
 
     /***
-     * Ads a new game to the list.
+     * Adds a new game to the list.
      * \
      * @param name the name of the player
      * @param steps the count of the steps the player took
