@@ -5,8 +5,15 @@ import Chess.GameManager.Position;
 import puzzle.TwoPhaseMoveState;
 import puzzle.solver.BreadthFirstSearch;
 
+/***
+ * A class for the solver
+ */
 public class Main
 {
+    /***
+     * entry point of the bfs solver
+     * @param args cmd line args
+     */
     public static void main(String[] args)
     {
         try

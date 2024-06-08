@@ -111,6 +111,9 @@ public class MenuController
         TableColumn<GameInfo, String> dateCol = new TableColumn<GameInfo, String>("Datum");
         dateCol.setCellValueFactory(new PropertyValueFactory<GameInfo, String>("date"));
 
+        Plays.getColumns().clear();
+        Plays.getItems().clear();
+
         Plays.getColumns().addAll(nameCol, durationCol, stepsCol, dateCol);
         Plays.getItems().addAll(DataHolder.GameInfos);
 

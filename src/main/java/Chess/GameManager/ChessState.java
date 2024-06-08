@@ -8,8 +8,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/***
+ * A class for managing the logic of the game.
+ */
 public class ChessState implements TwoPhaseMoveState<Position>
 {
+    /***
+     * The size of thr chessboard.
+     */
     public static final short BOARD_SIZE = 8;
 
     private PiecePosition targetPosition;
@@ -239,6 +245,9 @@ public class ChessState implements TwoPhaseMoveState<Position>
         return knightPosition.getPosition();
     }
 
+    /***
+     * {@return the current position of the target}
+     */
     public Position getTargetsPosition()
     {
         return targetPosition.getPosition();
