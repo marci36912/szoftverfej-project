@@ -27,8 +27,4 @@ public class Game extends Application
 
         Logger.info("Game started with UI");
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
 }
